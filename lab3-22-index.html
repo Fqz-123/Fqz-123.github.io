@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>秋分数字展销平台-图书首页</title>
+    <style>
+        /* 基础样式重置 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: "Microsoft YaHei", sans-serif;
+            color: #333;
+            background-color: #f5f5f5;
+        }
+
+        /* 头部区域-浮动布局 */
+        .header width: 100%;
+            height: 80px;
+            background-color{: #333;
+            color: #fff;
+        }
+        .header-container {
+            width: 1200px;
+            margin: 0 auto;
+            height: 100%;
+        }
+        .logo {
+            float: left;
+            font-size: 28px;
+            line-height: 80px;
+            font-weight: bold;
+        }
+        .nav {
+            float: right;
+            margin-top: 25px;
+        }
+        .nav ul {
+            list-style: none;
+        }
+        .nav li {
+            float: left;
+            margin-left: 30px;
+        }
+        .nav a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 16px;
+            transition: color 0.3s;
+        }
+        .nav a:hover {
+            color: #ff9900;
+            cursor: pointer;
+        }
+
+        /* 主体内容-浮动三栏布局 */
+        .main {
+            width: 1200px;
+            margin: 20px auto;
+            overflow: hidden; /* 清除浮动 */
+        }
+
+        /* 左侧栏-相对定位 */
+        .sidebar-left {
+            float: left;
+            width: 220px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .category-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        .category-list {
+            list-style: none;
+        }
+        .category-item {
+            margin-bottom: 10px;
+            position: relative; /* 相对定位容器 */
+        }
+        .category-item a {
+            display: block;
+            color: #333;
+            text-decoration: none;
+            padding: 8px 0;
+            transition: all 0.3s;
+        }
+        .category-item a:hover {
+            color: #ff9900;
+            padding-left: 10px; /* 相对定位实现 hover 偏移 */
+            cursor: pointer;
+        }
+
+        /* 中间栏-盒子模型 + 浮动排列 */
+        .content {
+            float: left;
+            width: 740px;
+            margin: 0 20px;
+        }
+        .book-section {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        .section-title {
+            font-size: 20px;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        .book-list {
+            overflow: hidden; /* 清除浮动 */
+        }
+        .book-item {
+            float: left;
+            width: 220px;
+            margin-right: 20px;
+            margin-bottom: 20px;
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 5px;
+            transition: box-shadow 0.3s;
+        }
+        .book-item:nth-child(3n) {
+            margin-right: 0;
+        }
+        .book-item:hover {
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            cursor: pointer;
+        }
+        .book-img {
+            width: 100%;
+            height: 280px;
+            object-fit: cover;
+            border-radius: 3px;
+            margin-bottom: 10px;
+        }
+        .book-name {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .book-author {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 10px;
+        }
+        .book-price {
+            font-size: 16px;
+            color: #e4393c;
+            font-weight: bold;
+        }
+
+        /* 新书上市-Table布局 */
+        .new-book-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .new-book-table th, .new-book-table td {
+            border: 1px solid #eee;
+            padding: 10px;
+            text-align: center;
+        }
+        .new-book-table th {
+            background-color: #f5f5f5;
+            font-weight: bold;
+        }
+
+        /* 右侧栏 */
+        .sidebar-right {
+            float: right;
+            width: 200px;
+        }
+        .promotion {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        .promotion-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        .promotion-item {
+            margin-bottom: 15px;
+        }
+        .promotion-img {
+            width: 100%;
+            border-radius: 3px;
+            margin-bottom: 5px;
+        }
+        .promotion-desc {
+            font-size: 14px;
+            color: #e4393c;
+            font-weight: bold;
+        }
+
+        /* 底部区域 */
+        .footer {
+            clear: both;
+            width: 100%;
+            height: 100px;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            line-height: 100px;
+        }
+    </style>
+</head>
+<body>
+    <!-- 头部区域 -->
+    <header class="header">
+        <div class="header-container">
+            <div class="logo">秋分图书</div>
+            <nav class="nav">
+                <ul>
+                    <li><a href="#">首页</a></li>
+                    <li><a href="#">图书分类</a></li>
+                    <li><a href="#">新书上市</a></li>
+                    <li><a href="#">促销活动</a></li>
+                    <li><a href="#">关于我们</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- 主体内容 -->
+    <div class="main">
+        <!-- 左侧栏-图书分类导航 -->
+        <aside class="sidebar-left">
+            <h2 class="category-title">图书分类</h2>
+            <ul class="category-list">
+                <li class="category-item"><a href="#">小说</a></li>
+                <li class="category-item"><a href="#">传记</a></li>
+                <li class="category-item"><a href="#">历史</a></li>
+                <li class="category-item"><a href="#">科幻</a></li>
+                <li class="category-item"><a href="#">科普</a></li>
+                <li class="category-item"><a href="#">哲学</a></li>
+                <li class="category-item"><a href="#">艺术</a></li>
+                <li class="category-item"><a href="#">经济管理</a></li>
+            </ul>
+        </aside>
+
+        <!-- 中间栏-图书展示区 -->
+        <section class="content">
+            <div class="book-section">
+                <h2 class="section-title">热门推荐</h2>
+                <div class="book-list">
+                    <div class="book-item">
+                        <img src="cb761d3f55e34cd0859b4218d34b417e~tplv-be4g95zd3a-image (1).jpeg" alt="图书封面" class="book-img">
+                        <h3 class="book-name">《百年孤独》</h3>
+                        <p class="book-author">加西亚·马尔克斯</p>
+                        <p class="book-price">¥89.00</p>
+                    </div>
+                    <div class="book-item">
+                        <img src="93591da38b3b7c7203359049966ad569~tplv-be4g95zd3a-image.jpeg" alt="图书封面" class="book-img">
+                        <h3 class="book-name">《活着》</h3>
+                        <p class="book-author">余华</p>
+                        <p class="book-price">¥45.00</p>
+                    </div>
+                    <div class="book-item">
+                        <img src="bf44786e84944b8693f763ae29f62832~tplv-be4g95zd3a-image (1).jpeg" alt="图书封面" class="book-img">
+                        <h3 class="book-name">《三体》</h3>
+                        <p class="book-author">刘慈欣</p>
+                        <p class="book-price">¥68.00</p>
+                    </div>
+                    <div class="book-item">
+                        <img src="27d67983946ca95e5bdb3b5a91f0299e~tplv-be4g95zd3a-image.jpeg" alt="图书封面" class="book-img">
+                        <h3 class="book-name">《追风筝的人》</h3>
+                        <p class="book-author">卡勒德·胡赛尼</p>
+                        <p class="book-price">¥56.00</p>
+                    </div>
+                    <div class="book-item">
+                        <img src="758c18c49ef5e70e86e7a4b7234acea9~tplv-be4g95zd3a-image.jpeg" alt="图书封面" class="book-img">
+                        <h3 class="book-name">《平凡的世界》</h3>
+                        <p class="book-author">路遥</p>
+                        <p class="book-price">¥98.00</p>
+                    </div>
+                    <div class="book-item">
+                        <img src="a8fdb82b404fee73249b06a20b942891~tplv-be4g95zd3a-image.jpeg" alt="图书封面" class="book-img">
+                        <h3 class="book-name">《白夜行》</h3>
+                        <p class="book-author">东野圭吾</p>
+                        <p class="book-price">¥59.00</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="book-section">
+                <h2 class="section-title">新书上市</h2>
+                <table class="new-book-table">
+                    <thead>
+                        <tr>
+                        <th>图书名称</th>
+                        <th>作者</th>
+                        <th>价格</th>
+                        <th>上市时间</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>《长安的荔枝》</td>
+                            <td>马伯庸</td>
+                            <td>¥49.00</td>
+                            <td>2023-01-15</td>
+                        </tr>
+                        <tr>
+                            <td>《消失的十三级台阶》</td>
+                            <td>高野和明</td>
+                            <td>¥45.00</td>
+                            <td>2023-02-20</td>
+                        </tr>
+                        <tr>
+                            <td>《云边有个小卖部》</td>
+                            <td>张嘉佳</td>
+                            <td>¥52.00</td>
+                            <td>2023-03-10</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- 右侧栏-促销信息 -->
+        <aside class="sidebar-right">
+            <div class="promotion">
+                <h2 class="promotion-title">促销活动</h2>
+                <img src="1527A1FFD0056BB2E7AFA7A7DB2EBC01.jpg" alt="促销活动" class="book-img">
+                <div class="promotion-item">
+                    
+                    <p class="promotion-desc">满100减30，限时优惠！</p>
+                </div>
+                <div class="promotion-item">
+                   
+                    <p class="promotion-desc">新书上市5折起！</p>
+                </div>
+                <div class="promotion-item">
+                   
+                    <p class="promotion-desc">会员专享7折优惠！</p>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <!-- 底部区域 -->
+    <footer class="footer">
+        <p>秋分图书展销平台 &copy; 2025 版权所有</p>
+    </footer>
+</body>
+</html>
