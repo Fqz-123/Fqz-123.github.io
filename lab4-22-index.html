@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数字图书展销平台</title>
+    <style>
+        /* 全局样式重置 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "微软雅黑", sans-serif;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* 头部区域：Logo + 导航（浮动布局 - 实验三要求） */
+        .header {
+            width: 100%;
+            background-color: #fff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 15px 0;
+            overflow: hidden; /* 清除浮动影响 */
+        }
+
+        .logo {
+            float: left;
+            margin-left: 30px;
+        }
+
+        .logo h1 {
+            font-size: 24px;
+            color: #2c3e50;
+        }
+
+        .nav-menu {
+            float: right;
+            margin-right: 30px;
+        }
+
+        .nav-menu ul {
+            list-style: none;
+        }
+
+        .nav-menu ul li {
+            float: left;
+            margin-left: 20px;
+        }
+
+        .nav-menu ul li a {
+            text-decoration: none;
+            color: #333;
+            font-size: 16px;
+            transition: color 0.3s ease;
+        }
+
+        .nav-menu ul li a:hover {
+            color: #3498db;
+            cursor: pointer; /* 实验三cursor属性要求 */
+        }
+
+        /* 轮播图样式（实验四要求） */
+        .carousel-container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 20px auto;
+            overflow: hidden;
+            position: relative;
+            height: 350px;
+            border-radius: 8px;
+        }
+
+        .carousel {
+            display: flex;
+            width: 400%; /* 4张图片，所以宽度是400% */
+            height: 100%;
+            transition: transform 0.5s ease;
+        }
+
+        .carousel-item {
+            width: 25%; /* 每张图片占25%宽度 */
+            height: 100%;
+            position: relative;
+        }
+
+        .carousel-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .carousel-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: rgba(0, 0, 0, 0.6); /* 半透明背景 */
+            color: white;
+            padding: 15px;
+        }
+
+        /* 轮播图控制按钮 */
+        .carousel-control {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(255, 255, 255, 0.5);
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            font-size: 20px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            z-index: 10;
+        }
+
+        .carousel-control:hover {
+            background-color: rgba(255, 255, 255, 0.8);
+        }
+
+        .prev {
+            left: 15px;
+        }
+
+        .next {
+            right: 15px;
+        }
+
+        /* 轮播图指示器 */
+        .carousel-indicators {
+            position: absolute;
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            z-index: 10;
+        }
+
+        .indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .indicator.active {
+            background-color: white;
+        }
+
+        /* 主体容器：三栏浮动布局（实验三要求） */
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 20px auto;
+            overflow: hidden; /* 清除浮动影响 */
+        }
+
+        .sidebar {
+            float: left;
+            width: 20%;
+            background-color: #f9f9f9;
+            padding: 20px;
+            border: 1px solid #eee;
+            margin-right: 2%;
+            position: relative; /* 实验三相对定位要求 */
+        }
+
+        .sidebar h2 {
+            font-size: 18px;
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+
+        .category-list {
+            list-style: none;
+        }
+
+        .category-list li {
+            margin-bottom: 10px;
+        }
+
+        .category-list li a {
+            text-decoration: none;
+            color: #666;
+            transition: color 0.3s ease;
+        }
+
+        .category-list li a:hover {
+            color: #3498db;
+            cursor: pointer;
+        }
+
+        .content {
+            float: left;
+            width: 56%;
+            padding: 20px;
+            border: 1px solid #eee;
+            margin-right: 2%;
+        }
+
+        .filter {
+            margin-bottom: 20px;
+        }
+
+        .filter select {
+            padding: 8px 12px;
+            margin-right: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: border-color 0.3s ease;
+        }
+
+        .filter select:hover {
+            border-color: #3498db;
+        }
+
+        .book-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .book-item {
+            width: calc(50% - 10px); /* 两列布局 */
+            border: 1px solid #eee;
+            border-radius: 8px;
+            overflow: hidden; /* 实验四overflow属性要求 */
+            transition: box-shadow 0.3s ease;
+        }
+
+        .book-item:hover {
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .book-img-container {
+            position: relative; /* 相对定位作为绝对定位父容器 */
+            width: 100%;
+            height: 250px;
+            overflow: hidden;
+        }
+
+        .book-img {
+            width: 70%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .book-img-big {
+            position: absolute; /* 绝对定位实现大图悬浮 */
+            top: 0;
+            left: 85%;
+            width: 85%;
+            height: auto;
+            opacity: 0; /* 初始隐藏 */
+            transition: opacity 0.3s ease, left 0.3s ease;
+            z-index: 10; /* 实验四z-index要求 */
+        }
+
+        .book-img-container:hover .book-img {
+            transform: scale(1.05);
+        }
+
+        .book-img-container:hover .book-img-big {
+            opacity: 1; /* 悬浮时显示大图 */
+            left: 0;
+        }
+
+        .book-title {
+            font-size: 18px;
+            padding: 10px 15px;
+            color: #2c3e50;
+        }
+
+        .book-price {
+            font-size: 20px;
+            color: #e74c3c;
+            padding: 0 15px 10px;
+        }
+
+        .book-desc {
+            padding: 0 15px 15px;
+            font-size: 14px;
+            color: #666;
+            opacity: 0; /* 初始隐藏详情 */
+            visibility: hidden; /* 保留空间的隐藏（实验四visibility属性要求） */
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        .book-item:hover .book-desc {
+            opacity: 1; /* 悬浮时显示详情 */
+            visibility: visible;
+        }
+
+        .promotion {
+            float: left;
+            width: 20%;
+            background-color: #f9f9f9;
+            padding: 20px;
+            border: 1px solid #eee;
+        }
+
+        .promotion h2 {
+            font-size: 18px;
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+
+        .promo-item {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.8;
+        }
+
+        /* 页脚样式 */
+        .footer {
+            clear: both;
+            text-align: center;
+            padding: 20px;
+            margin-top: 30px;
+            background-color: #f5f5f5;
+            color: #666;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <!-- 头部区域：Logo + 导航（实验三浮动布局要求） -->
+    <header class="header">
+        <div class="logo">
+            <h1>数字图书展销平台</h1>
+        </div>
+        <nav class="nav-menu">
+            <ul>
+                <li><a href="#">首页</a></li>
+                <li><a href="#">图书分类</a></li>
+                <li><a href="#">新书上市</a></li>
+                <li><a href="#">促销活动</a></li>
+                <li><a href="#">关于我们</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- 轮播图（实验四要求） -->
+    <div class="carousel-container">
+        <div class="carousel">
+            <div class="carousel-item">
+                <img src="https://picsum.photos/id/24/1200/350" alt="编程书籍促销">
+                <div class="carousel-caption">
+                    <h3>编程书籍专场</h3>
+                    <p>全场7折，助力你的学习之路</p>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="创建数字图书展销平台.png" alt="历史书籍推荐">
+                <div class="carousel-caption">
+                    <h3>历史书籍精选</h3>
+                    <p>探索过去，了解世界</p>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="创建数字图书展销平台 (1).png" alt="科普读物推荐">
+                <div class="carousel-caption">
+                    <h3>科普读物系列</h3>
+                    <p>发现科学的奥秘</p>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="创建数字图书展销平台 (4).png" alt="文学经典推荐">
+                <div class="carousel-caption">
+                    <h3>文学经典名著</h3>
+                    <p>感受文字的魅力</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 轮播控制按钮 -->
+        <button class="carousel-control prev" onclick="prevSlide()">&#10094;</button>
+        <button class="carousel-control next" onclick="nextSlide()">&#10095;</button>
+        
+        <!-- 轮播指示器 -->
+        <div class="carousel-indicators">
+            <span class="indicator active" onclick="goToSlide(0)"></span>
+            <span class="indicator" onclick="goToSlide(1)"></span>
+            <span class="indicator" onclick="goToSlide(2)"></span>
+            <span class="indicator" onclick="goToSlide(3)"></span>
+        </div>
+    </div>
+
+    <!-- 主体内容：三栏浮动布局（实验三要求） -->
+    <main class="container">
+        <!-- 左侧栏：图书分类导航（相对定位） -->
+        <aside class="sidebar">
+            <h2>图书分类</h2>
+            <ul class="category-list">
+                <li><a href="#">小说</a></li>
+                <li><a href="#">历史</a></li>
+                <li><a href="#">科普</a></li>
+                <li><a href="#">技术</a></li>
+                <li><a href="#">文学</a></li>
+                <li><a href="#">哲学</a></li>
+                <li><a href="#">经济</a></li>
+                <li><a href="#">艺术</a></li>
+            </ul>
+
+            <h2 style="margin-top: 30px;">热门作者</h2>
+            <ul class="category-list">
+                <li><a href="#">鲁迅</a></li>
+                <li><a href="#">莫言</a></li>
+                <li><a href="#">霍金</a></li>
+                <li><a href="#">钱钟书</a></li>
+            </ul>
+        </aside>
+
+        <!-- 中间栏：图书展示区 + 交互效果（实验四要求） -->
+        <section class="content">
+            <!-- 下拉筛选菜单 -->
+            <div class="filter">
+                <select name="category" id="category">
+                    <option value="">按分类筛选</option>
+                    <option value="novel">小说</option>
+                    <option value="history">历史</option>
+                    <option value="science">科普</option>
+                    <option value="technology">技术</option>
+                    <option value="literature">文学</option>
+                </select>
+                <select name="price" id="price">
+                    <option value="">按价格筛选</option>
+                    <option value="0-50">0-50元</option>
+                    <option value="50-100">50-100元</option>
+                    <option value="100+">100元以上</option>
+                </select>
+                <select name="sort" id="sort">
+                    <option value="">排序方式</option>
+                    <option value="price-asc">价格从低到高</option>
+                    <option value="price-desc">价格从高到低</option>
+                    <option value="newest">最新上架</option>
+                </select>
+            </div>
+
+            <!-- 图书列表 -->
+            <div class="book-list">
+                <!-- 图书项1 -->
+                <div class="book-item">
+                    <div class="book-img-container">
+                        <img src="408592b73c26aaf758816c52d3c71e14.jpg" alt="Python编程从入门到精通书籍封面" class="book-img">
+                        <img src="408592b73c26aaf758816c52d3c71e14.jpg" alt="Python编程从入门到精通书籍大图" class="book-img-big">
+                    </div>
+                    <h3 class="book-title">《Python编程从入门到精通》</h3>
+                    <p class="book-price">¥89.00</p>
+                    <div class="book-desc">
+                        <p>从零开始讲解Python编程，涵盖基础语法、Web开发、数据分析等领域，配套大量实战案例。</p>
+                    </div>
+                </div>
+
+                <!-- 图书项2 -->
+                <div class="book-item">
+                    <div class="book-img-container">
+                        <img src="908ad82acc36ef4a1ea581f16b0f8807.jpg" alt="中国历史纲要书籍封面" class="book-img">
+                        <img src="908ad82acc36ef4a1ea581f16b0f8807.jpg" alt="中国历史纲要大图" class="book-img-big">
+                    </div>
+                    <h3 class="book-title">《中国历史纲要》</h3>
+                    <p class="book-price">¥129.00</p>
+                    <div class="book-desc">
+                        <p>全景式展现中国上下五千年历史，史料详实，叙事生动，附赠历史地图集。</p>
+                    </div>
+                </div>
+
+                <!-- 图书项3 -->
+                <div class="book-item">
+                    <div class="book-img-container">
+                        <img src="25d81ae1-89f5-47af-bee0-06eaf27a30bf.jpg" alt="前端开发实战书籍封面" class="book-img">
+                        <img src="25d81ae1-89f5-47af-bee0-06eaf27a30bf.jpg" alt="前端开发实战书籍大图" class="book-img-big">
+                    </div>
+                    <h3 class="book-title">《前端开发实战》</h3>
+                    <p class="book-price">¥68.00</p>
+                    <div class="book-desc">
+                        <p>深入浅出地解释计算机前端开发理论</p>
+                    </div>
+                </div>
+
+                <!-- 图书项4 -->
+                <div class="book-item">
+                    <div class="book-img-container">
+                        <img src="cb761d3f55e34cd0859b4218d34b417e~tplv-be4g95zd3a-image (1).jpeg" alt="百年孤独书籍封面" class="book-img">
+                        <img src="cb761d3f55e34cd0859b4218d34b417e~tplv-be4g95zd3a-image (1).jpeg" alt="百年孤独书籍大图" class="book-img-big">
+                    </div>
+                    <h3 class="book-title">《百年孤独》</h3>
+                    <p class="book-price">¥59.00</p>
+                    <div class="book-desc">
+                        <p>魔幻现实主义文学的代表作，讲述布恩迪亚家族七代人的传奇故事。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 右侧栏：促销信息 -->
+        <aside class="promotion">
+            <h2>促销活动</h2>
+            <div class="promo-item">
+                <p>📚 满100减20，限时三天！</p>
+                <p>📚 新书上市享8折优惠</p>
+                <p>📚 会员专享：全场75折</p>
+                <p>📚 买二送一活动进行中</p>
+            </div>
+
+            <h2 style="margin-top: 30px;">新书推荐</h2>
+            <div class="promo-item">
+                <p>《人工智能时代》</p>
+                <p>¥79.00 <span style="color: #e74c3c; text-decoration: line-through; font-size: 12px;">¥99.00</span></p>
+                
+                <p style="margin-top: 15px;">《未来简史》</p>
+                <p>¥68.00 <span style="color: #e74c3c; text-decoration: line-through; font-size: 12px;">¥88.00</span></p>
+            </div>
+        </aside>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <p>© 2023 数字图书展销平台 版权所有</p>
+    </footer>
+
+    <!-- 轮播图JavaScript代码 -->
+    <script>
+        let currentSlide = 0;
+        const totalSlides = 4; // 轮播图数量
+        const carousel = document.querySelector('.carousel');
+        const indicators = document.querySelectorAll('.indicator');
+        
+        // 自动轮播
+        let slideInterval = setInterval(nextSlide, 5000);
+        
+        // 下一张
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            updateSlidePosition();
+        }
+        
+        // 上一张
+        function prevSlide() {
+            currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+            updateSlidePosition();
+        }
+        
+        // 跳转到指定幻灯片
+        function goToSlide(index) {
+            currentSlide = index;
+            updateSlidePosition();
+        }
+        
+        // 更新幻灯片位置和指示器状态
+        function updateSlidePosition() {
+            // 重置定时器
+            clearInterval(slideInterval);
+            slideInterval = setInterval(nextSlide, 5000);
+            
+            // 移动轮播
+            carousel.style.transform = `translateX(-${currentSlide * 25}%)`;
+            
+            // 更新指示器
+            indicators.forEach((indicator, index) => {
+                if (index === currentSlide) {
+                    indicator.classList.add('active');
+                } else {
+                    indicator.classList.remove('active');
+                }
+            });
+        }
+    </script>
+</body>
+</html>
+    
