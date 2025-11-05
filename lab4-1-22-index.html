@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数字图书展销平台</title>
+    <!-- 引用外部样式文件 -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- 左侧固定边条 - 使用固定定位 -->
+    <div class="fixed-sidebar">
+        <img src="https://picsum.photos/id/237/30/30" alt="首页" class="sidebar-icon" title="首页">
+        <img src="https://picsum.photos/id/238/30/30" alt="搜索" class="sidebar-icon" title="搜索">
+        <img src="https://picsum.photos/id/239/30/30" alt="收藏" class="sidebar-icon" title="我的收藏">
+        <img src="https://picsum.photos/id/240/30/30" alt="购物车" class="sidebar-icon" title="购物车">
+        <img src="https://picsum.photos/id/241/30/30" alt="用户中心" class="sidebar-icon" title="用户中心">
+    </div>
+
+    <!-- 头部区域：Logo + 导航 -->
+    <header class="header">
+        <div class="logo">
+            <h1>数字图书展销平台</h1>
+        </div>
+        <nav class="nav-menu">
+            <ul>
+                <li><a href="#">首页</a></li>
+                <li><a href="#">图书分类</a></li>
+                <li><a href="#">新书上市</a></li>
+                <li><a href="#">促销活动</a></li>
+                <li><a href="#">关于我们</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- 轮播图 -->
+    <div class="carousel-container">
+        <div class="carousel">
+            <div class="carousel-item">
+                <img src="https://picsum.photos/id/24/1200/350" alt="编程书籍促销">
+                <div class="carousel-caption">
+                    <h3>编程书籍专场</h3>
+                    <p>全场7折，助力你的学习之路</p>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="创建数字图书展销平台.png" alt="历史书籍推荐">
+                <div class="carousel-caption">
+                    <h3>历史书籍精选</h3>
+                    <p>探索过去，了解世界</p>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="创建数字图书展销平台 (1).png" alt="科普读物推荐">
+                <div class="carousel-caption">
+                    <h3>科普读物系列</h3>
+                    <p>发现科学的奥秘</p>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="创建数字图书展销平台 (4).png" alt="文学经典推荐">
+                <div class="carousel-caption">
+                    <h3>文学经典名著</h3>
+                    <p>感受文字的魅力</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 轮播控制按钮 -->
+        <button class="carousel-control prev" onclick="prevSlide()">&#10094;</button>
+        <button class="carousel-control next" onclick="nextSlide()">&#10095;</button>
+        
+        <!-- 轮播指示器 -->
+        <div class="carousel-indicators">
+            <span class="indicator active" onclick="goToSlide(0)"></span>
+            <span class="indicator" onclick="goToSlide(1)"></span>
+            <span class="indicator" onclick="goToSlide(2)"></span>
+            <span class="indicator" onclick="goToSlide(3)"></span>
+        </div>
+    </div>
+
+    <!-- 主体内容：三栏浮动布局 -->
+    <main class="container">
+        <!-- 左侧栏：图书分类导航 -->
+        <aside class="sidebar">
+            <h2>图书分类</h2>
+            <ul class="category-list">
+                <li><a href="#">小说</a></li>
+                <li><a href="#">历史</a></li>
+                <li><a href="#">科普</a></li>
+                <li><a href="#">技术</a></li>
+                <li><a href="#">文学</a></li>
+                <li><a href="#">哲学</a></li>
+                <li><a href="#">经济</a></li>
+                <li><a href="#">艺术</a></li>
+            </ul>
+
+            <h2 style="margin-top: 30px;">热门作者</h2>
+            <ul class="category-list">
+                <li><a href="#">鲁迅</a></li>
+                <li><a href="#">莫言</a></li>
+                <li><a href="#">霍金</a></li>
+                <li><a href="#">钱钟书</a></li>
+            </ul>
+        </aside>
+
+        <!-- 中间栏：图书展示区 -->
+        <section class="content">
+            <!-- 下拉筛选菜单 -->
+            <div class="filter">
+                <select name="category" id="category">
+                    <option value="">按分类筛选</option>
+                    <option value="novel">小说</option>
+                    <option value="history">历史</option>
+                    <option value="science">科普</option>
+                    <option value="technology">技术</option>
+                    <option value="literature">文学</option>
+                </select>
+                <select name="price" id="price">
+                    <option value="">按价格筛选</option>
+                    <option value="0-50">0-50元</option>
+                    <option value="50-100">50-100元</option>
+                    <option value="100+">100元以上</option>
+                </select>
+                <select name="sort" id="sort">
+                    <option value="">排序方式</option>
+                    <option value="price-asc">价格从低到高</option>
+                    <option value="price-desc">价格从高到低</option>
+                    <option value="newest">最新上架</option>
+                </select>
+            </div>
+
+            <!-- 图书列表 -->
+            <div class="book-list">
+                <!-- 图书项1 -->
+                <div class="book-item">
+                    <div class="book-img-container">
+                        <img src="408592b73c26aaf758816c52d3c71e14.jpg" alt="Python编程从入门到精通书籍封面" class="book-img">
+                        <img src="408592b73c26aaf758816c52d3c71e14.jpg" alt="Python编程从入门到精通书籍大图" class="book-img-big">
+                    </div>
+                    <h3 class="book-title">《Python编程从入门到精通》</h3>
+                    <p class="book-price">¥89.00</p>
+                    <div class="book-desc">
+                        <p>从零开始讲解Python编程，涵盖基础语法、Web开发、数据分析等领域，配套大量实战案例。</p>
+                    </div>
+                </div>
+
+                <!-- 图书项2 -->
+                <div class="book-item">
+                    <div class="book-img-container">
+                        <img src="908ad82acc36ef4a1ea581f16b0f8807.jpg" alt="中国历史纲要书籍封面" class="book-img">
+                        <img src="908ad82acc36ef4a1ea581f16b0f8807.jpg" alt="中国历史纲要大图" class="book-img-big">
+                    </div>
+                    <h3 class="book-title">《中国历史纲要》</h3>
+                    <p class="book-price">¥129.00</p>
+                    <div class="book-desc">
+                        <p>全景式展现中国上下五千年历史，史料详实，叙事生动，附赠历史地图集。</p>
+                    </div>
+                </div>
+
+                <!-- 图书项3 -->
+                <div class="book-item">
+                    <div class="book-img-container">
+                        <img src="25d81ae1-89f5-47af-bee0-06eaf27a30bf.jpg" alt="前端开发实战书籍封面" class="book-img">
+                        <img src="25d81ae1-89f5-47af-bee0-06eaf27a30bf.jpg" alt="前端开发实战书籍大图" class="book-img-big">
+                    </div>
+                    <h3 class="book-title">《前端开发实战》</h3>
+                    <p class="book-price">¥68.00</p>
+                    <div class="book-desc">
+                        <p>深入浅出地解释计算机前端开发理论</p>
+                    </div>
+                </div>
+
+                <!-- 图书项4 -->
+                <div class="book-item">
+                    <div class="book-img-container">
+                        <img src="cb761d3f55e34cd0859b4218d34b417e~tplv-be4g95zd3a-image (1).jpeg" alt="百年孤独书籍封面" class="book-img">
+                        <img src="cb761d3f55e34cd0859b4218d34b417e~tplv-be4g95zd3a-image (1).jpeg" alt="百年孤独书籍大图" class="book-img-big">
+                    </div>
+                    <h3 class="book-title">《百年孤独》</h3>
+                    <p class="book-price">¥59.00</p>
+                    <div class="book-desc">
+                        <p>魔幻现实主义文学的代表作，讲述布恩迪亚家族七代人的传奇故事。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 右侧栏：促销信息 -->
+        <aside class="promotion">
+            <h2>促销活动</h2>
+            <div class="promo-item">
+                <p>📚 满100减20，限时三天！</p>
+                <p>📚 新书上市享8折优惠</p>
+                <p>📚 会员专享：全场75折</p>
+                <p>📚 买二送一活动进行中</p>
+            </div>
+
+            <h2 style="margin-top: 30px;">新书推荐</h2>
+            <div class="promo-item">
+                <p>《人工智能时代》</p>
+                <p>¥79.00 <span style="color: #e74c3c; text-decoration: line-through; font-size: 12px;">¥99.00</span></p>
+                
+                <p style="margin-top: 15px;">《未来简史》</p>
+                <p>¥68.00 <span style="color: #e74c3c; text-decoration: line-through; font-size: 12px;">¥88.00</span></p>
+            </div>
+        </aside>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <p>© 2023 数字图书展销平台 版权所有</p>
+    </footer>
+
+    <!-- 轮播图JavaScript代码 -->
+    <script>
+        let currentSlide = 0;
+        const totalSlides = 4; // 轮播图数量
+        const carousel = document.querySelector('.carousel');
+        const indicators = document.querySelectorAll('.indicator');
+        
+        // 自动轮播
+        let slideInterval = setInterval(nextSlide, 5000);
+        
+        // 下一张
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            updateSlidePosition();
+        }
+        
+        // 上一张
+        function prevSlide() {
+            currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+            updateSlidePosition();
+        }
+        
+        // 跳转到指定幻灯片
+        function goToSlide(index) {
+            currentSlide = index;
+            updateSlidePosition();
+        }
+        
+        // 更新幻灯片位置和指示器状态
+        function updateSlidePosition() {
+            // 重置定时器
+            clearInterval(slideInterval);
+            slideInterval = setInterval(nextSlide, 5000);
+            
+            // 移动轮播
+            carousel.style.transform = `translateX(-${currentSlide * 25}%)`;
+            
+            // 更新指示器
+            indicators.forEach((indicator, index) => {
+                if (index === currentSlide) {
+                    indicator.classList.add('active');
+                } else {
+                    indicator.classList.remove('active');
+                }
+            });
+        }
+    </script>
+</body>
+</html>
