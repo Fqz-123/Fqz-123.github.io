@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数字图书展销平台</title>
+    <!-- 引入Font Awesome图标库 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="stylesheet" href="style5.css">
+   
+<body>
+    <!-- 头部区域：包含登录/注册入口 -->
+    <header class="header">
+        <div class="logo">
+            <h1>数字图书展销平台</h1>
+        </div>
+        <!-- 用户操作区（登录/注册/退出/用户信息） -->
+        <div class="user-action">
+            <!-- 未登录状态：显示登录/注册按钮 -->
+            <div class="auth-buttons" id="authButtons">
+                <button class="login-btn" id="showLoginBtn"><i class="fas fa-sign-in-alt"></i> 登录</button>
+                <button class="register-btn" id="showRegisterBtn"><i class="fas fa-user-plus"></i> 注册</button>
+            </div>
+            <!-- 已登录状态：显示用户信息和退出按钮（默认隐藏） -->
+            <div class="user-status" id="userStatus" style="display: none;">
+                <span class="user-info"><i class="fas fa-user"></i> <span id="username">游客</span></span>
+                <button class="logout-btn" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> 退出</button>
+            </div>
+        </div>
+        <nav class="nav-menu">
+            <ul>
+                <li><a href="#">首页</a></li>
+                <li><a href="#">图书分类</a></li>
+                <li><a href="#">新书上市</a></li>
+                <li><a href="#">促销活动</a></li>
+                <li><a href="#">关于我们</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- 登录/注册模态框（弹窗） -->
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <span class="close-modal" id="closeLoginModal">&times;</span>
+            <h2 class="modal-title"><i class="fas fa-user-lock"></i> 账号登录</h2>
+            <form class="auth-form" id="loginForm">
+                <div class="form-group">
+                    <label for="loginUsername">用户名</label>
+                    <input type="text" class="form-control" id="loginUsername" placeholder="请输入用户名" required>
+                    <div class="form-error" id="loginUsernameError">用户名不能为空</div>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">密码</label>
+                    <input type="password" class="form-control" id="loginPassword" placeholder="请输入密码" required>
+                    <div class="form-error" id="loginPasswordError">密码不能为空</div>
+                </div>
+                <button type="submit" class="submit-btn">登录</button>
+                <div class="form-footer">
+                    还没有账号？<a href="#" id="goToRegister">立即注册</a> | 
+                    <a href="#">忘记密码？</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal" id="registerModal">
+        <div class="modal-content">
+            <span class="close-modal" id="closeRegisterModal">&times;</span>
+            <h2 class="modal-title"><i class="fas fa-user-plus"></i> 图书推荐订阅注册</h2>
+            <form class="auth-form" id="registerForm">
+                <div class="form-group">
+                    <label for="regUsername">用户名 <span style="color: red;">*</span></label>
+                    <input type="text" class="form-control" id="regUsername" placeholder="请输入用户名" required>
+                    <div class="form-error" id="regUsernameError">用户名不能为空</div>
+                </div>
+                <div class="form-group">
+                    <label for="regEmail">邮箱 <span style="color: red;">*</span></label>
+                    <input type="email" class="form-control" id="regEmail" placeholder="请输入邮箱" required>
+                    <div class="form-error" id="regEmailError">请输入有效的邮箱地址</div>
+                </div>
+                <div class="form-group">
+                    <label for="regPassword">设置密码 <span style="color: red;">*</span></label>
+                    <input type="password" class="form-control" id="regPassword" placeholder="请设置密码" required>
+                    <div class="form-error" id="regPasswordError">密码不能为空</div>
+                </div>
+                <div class="form-group">
+                    <label>性别</label>
+                    <div style="display: flex; gap: 15px;">
+                        <label><input type="radio" name="gender" value="男" checked> 男</label>
+                        <label><input type="radio" name="gender" value="女"> 女</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>感兴趣的图书分类</label>
+                    <div style="display: flex; gap: 15px;">
+                        <label><input type="checkbox" name="category" value="小说"> 小说</label>
+                        <label><input type="checkbox" name="category" value="历史"> 历史</label>
+                        <label><input type="checkbox" name="category" value="科普"> 科普</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="city">所在城市</label>
+                    <select class="form-control" id="city">
+                        <option value="">请选择城市</option>
+                        <option value="beijing">北京</option>
+                        <option value="shanghai">上海</option>
+                        <option value="guangzhou">广州</option>
+                        <option value="shenzhen">深圳</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="avatar">上传头像</label>
+                    <input type="file" class="form-control" id="avatar">
+                </div>
+                <div class="form-group">
+                    <label for="subscribeDesc">订阅说明（选填）</label>
+                    <textarea class="form-control" id="subscribeDesc" rows="3" placeholder="请输入订阅需求"></textarea>
+                </div>
+                <button type="submit" class="submit-btn">注册并订阅</button>
+                <div class="form-footer">
+                    已有账号？<a href="#" id="goToLogin">立即登录</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- 轮播图 -->
+    <div class="carousel-container">
+        <div class="carousel">
+            <div class="carousel-item">
+                <img src="https://picsum.photos/id/24/1200/350" alt="编程书籍促销">
+                <div class="carousel-caption">
+                    <h3>编程书籍专场</h3>
+                    <p>全场7折，助力你的学习之路</p>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="创建数字图书展销平台 (1).png" alt="历史书籍推荐">
+                <div class="carousel-caption">
+                    <h3>历史书籍精选</h3>
+                    <p>探索过去，了解世界</p>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="创建数字图书展销平台 (4).png" alt="科普读物推荐">
+                <div class="carousel-caption">
+                    <h3>科普读物系列</h3>
+                    <p>发现科学的奥秘</p>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="创建数字图书展销平台.png" alt="文学经典推荐">
+                <div class="carousel-caption">
+                    <h3>文学经典名著</h3>
+                    <p>感受文字的魅力</p>
+                </div>
+            </div>
+        </div>
+        <button class="carousel-control prev" onclick="prevSlide()">&#10094;</button>
+        <button class="carousel-control next" onclick="nextSlide()">&#10095;</button>
+        <div class="carousel-indicators">
+            <span class="indicator active" onclick="goToSlide(0)"></span>
+            <span class="indicator" onclick="goToSlide(1)"></span>
+            <span class="indicator" onclick="goToSlide(2)"></span>
+            <span class="indicator" onclick="goToSlide(3)"></span>
+        </div>
+    </div>
+
+    <!-- 主体内容 -->
+    <main class="container">
+        <aside class="sidebar">
+            <h2><i class="fas fa-book-open"></i> 图书分类</h2>
+            <ul class="category-list">
+                <li><i class="fas fa-book"></i> <a href="#">小说</a></li>
+                <li><i class="fas fa-book"></i> <a href="#">历史</a></li>
+                <li><i class="fas fa-book"></i> <a href="#">科普</a></li>
+                <li><i class="fas fa-book"></i> <a href="#">技术</a></li>
+                <li><i class="fas fa-book"></i> <a href="#">文学</a></li>
+                <li><i class="fas fa-book"></i> <a href="#">哲学</a></li>
+                <li><i class="fas fa-book"></i> <a href="#">经济</a></li>
+                <li><i class="fas fa-book"></i> <a href="#">艺术</a></li>
+            </ul>
+
+            <h2 style="margin-top: 30px;"><i class="fas fa-pen-fancy"></i> 热门作者</h2>
+            <ul class="category-list">
+                <li><i class="fas fa-user"></i> <a href="#">鲁迅</a></li>
+                <li><i class="fas fa-user"></i> <a href="#">莫言</a></li>
+                <li><i class="fas fa-user"></i> <a href="#">霍金</a></li>
+                <li><i class="fas fa-user"></i> <a href="#">钱钟书</a></li>
+            </ul>
+        </aside>
+
+        <section class="content">
+            <div class="filter">
+                <select name="category" id="category">
+                    <option value="">按分类筛选</option>
+                    <option value="novel">小说</option>
+                    <option value="history">历史</option>
+                    <option value="science">科普</option>
+                    <option value="technology">技术</option>
+                    <option value="literature">文学</option>
+                </select>
+                <select name="price" id="price">
+                    <option value="">按价格筛选</option>
+                    <option value="0-50">0-50元</option>
+                    <option value="50-100">50-100元</option>
+                    <option value="100+">100元以上</option>
+                </select>
+                <select name="sort" id="sort">
+                    <option value="">排序方式</option>
+                    <option value="price-asc">价格从低到高</option>
+                    <option value="price-desc">价格从高到低</option>
+                    <option value="newest">最新上架</option>
+                </select>
+            </div>
+
+            <div class="book-list">
+                <div class="book-item">
+                    <div class="book-img-container">
+                        <img src="408592b73c26aaf758816c52d3c71e14.jpg" alt="Python编程从入门到精通书籍封面" class="book-img">
+                        <img src="408592b73c26aaf758816c52d3c71e14.jpg" alt="Python编程从入门到精通书籍封面大图" class="book-img-big">
+                    </div>
+                    <h3 class="book-title">《Python编程从入门到精通》</h3>
+                    <p class="book-price">¥89.00</p>
+                    <div class="book-desc">
+                        <p>从零开始讲解Python编程，涵盖基础语法、Web开发、数据分析等领域，配套大量实战案例。</p>
+                    </div>
+                    <div class="book-actions">
+                        <button class="add-to-cart" data-book="Python编程从入门到精通" data-price="89.00"><i class="fas fa-shopping-cart"></i> 加入购物车</button>
+                        <button class="buy-now" data-book="Python编程从入门到精通" data-price="89.00"><i class="fas fa-buy"></i> 立即购买</button>
+                    </div>
+                </div>
+
+                <div class="book-item">
+                    <div class="book-img-container">
+                        <img src="908ad82acc36ef4a1ea581f16b0f8807.jpg" alt="中国历史纲要" class="book-img">
+                        <img src="908ad82acc36ef4a1ea581f16b0f8807.jpg" alt="中国历史纲要大图" class="book-img-big">
+                    </div>
+                    <h3 class="book-title">《中国历史纲要》</h3>
+                    <p class="book-price">¥129.00</p>
+                    <div class="book-desc">
+                        <p>全景式展现中国上下五千年历史，史料详实，叙事生动。</p>
+                    </div>
+                    <div class="book-actions">
+                        <button class="add-to-cart" data-book="中国历史纲要" data-price="129.00"><i class="fas fa-shopping-cart"></i> 加入购物车</button>
+                        <button class="buy-now" data-book="中国历史纲要" data-price="129.00"><i class="fas fa-buy"></i> 立即购买</button>
+                    </div>
+                </div>
+
+                <div class="book-item">
+                    <div class="book-img-container">
+                        <img src="25d81ae1-89f5-47af-bee0-06eaf27a30bf.jpg" alt="前端开发实战" class="book-img">
+                        <img src="25d81ae1-89f5-47af-bee0-06eaf27a30bf.jpg" alt="前端开发实战大图" class="book-img-big">
+                    </div>
+                    <h3 class="book-title">《前端开发实战》</h3>
+                    <p class="book-price">¥68.00</p>
+                    <div class="book-desc">
+                        <p>深入浅出地解释计算机前端开发理论与实战案例。</p>
+                    </div>
+                    <div class="book-actions">
+                        <button class="add-to-cart" data-book="前端开发实战" data-price="68.00"><i class="fas fa-shopping-cart"></i> 加入购物车</button>
+                        <button class="buy-now" data-book="前端开发实战" data-price="68.00"><i class="fas fa-buy"></i> 立即购买</button>
+                    </div>
+                </div>
+
+                <div class="book-item">
+                    <div class="book-img-container">
+                        <img src="cb761d3f55e34cd0859b4218d34b417e~tplv-be4g95zd3a-image (1).jpeg" alt="百年孤独" class="book-img">
+                        <img src="cb761d3f55e34cd0859b4218d34b417e~tplv-be4g95zd3a-image (1).jpeg" alt="百年孤独大图" class="book-img-big">
+                    </div>
+                    <h3 class="book-title">《百年孤独》</h3>
+                    <p class="book-price">¥59.00</p>
+                    <div class="book-desc">
+                        <p>魔幻现实主义文学的代表作，讲述布恩迪亚家族七代人的传奇故事。</p>
+                    </div>
+                    <div class="book-actions">
+                        <button class="add-to-cart" data-book="百年孤独" data-price="59.00"><i class="fas fa-shopping-cart"></i> 加入购物车</button>
+                        <button class="buy-now" data-book="百年孤独" data-price="59.00"><i class="fas fa-buy"></i> 立即购买</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <aside class="promotion">
+            <h2>促销活动</h2>
+            <div class="promo-item">
+                <p>📚 满100减20，限时三天！</p>
+                <p>📚 新书上市享8折优惠</p>
+                <p>📚 会员专享：全场75折</p>
+                <p>📚 买二送一活动进行中</p>
+            </div>
+
+            <h2 style="margin-top: 30px;">新书推荐</h2>
+            <div class="promo-item">
+                <p>《人工智能时代》</p>
+                <p>¥79.00 <span style="color: #e74c3c; text-decoration: line-through; font-size: 12px;">¥99.00</span></p>
+                <p style="margin-top: 15px;">《未来简史》</p>
+                <p>¥68.00 <span style="color: #e74c3c; text-decoration: line-through; font-size: 12px;">¥88.00</span></p>
+            </div>
+        </aside>
+    </main>
+
+    <footer class="footer">
+        <p>© fqz-123数字图书展销平台 版权所有</p>
+    </footer>
+
+    <!-- JavaScript代码 -->
+    <script>
+        // 轮播图功能
+        let currentSlide = 0;
+        const totalSlides = 4;
+        const carousel = document.querySelector('.carousel');
+        const indicators = document.querySelectorAll('.indicator');
+        let slideInterval = setInterval(nextSlide, 5000);
+
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            updateSlidePosition();
+        }
+
+        function prevSlide() {
+            currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+            updateSlidePosition();
+        }
+
+        function goToSlide(index) {
+            currentSlide = index;
+            updateSlidePosition();
+        }
+
+        function updateSlidePosition() {
+            clearInterval(slideInterval);
+            slideInterval = setInterval(nextSlide, 5000);
+            carousel.style.transform = `translateX(-${currentSlide * 25}%)`;
+            indicators.forEach((indicator, index) => {
+                index === currentSlide ? indicator.classList.add('active') : indicator.classList.remove('active');
+            });
+        }
+
+        // 登录/注册模态框功能
+        const loginModal = document.getElementById('loginModal');
+        const registerModal = document.getElementById('registerModal');
+        const showLoginBtn = document.getElementById('showLoginBtn');
+        const showRegisterBtn = document.getElementById('showRegisterBtn');
+        const closeLoginModal = document.getElementById('closeLoginModal');
+        const closeRegisterModal = document.getElementById('closeRegisterModal');
+        const loginForm = document.getElementById('loginForm');
+        const registerForm = document.getElementById('registerForm');
+        const goToRegister = document.getElementById('goToRegister');
+        const goToLogin = document.getElementById('goToLogin');
+        const authButtons = document.getElementById('authButtons');
+        const userStatus = document.getElementById('userStatus');
+        const usernameDisplay = document.getElementById('username');
+        const logoutBtn = document.getElementById('logoutBtn');
+
+        // 显示登录模态框
+        showLoginBtn.addEventListener('click', () => {
+            loginModal.classList.add('show');
+            document.body.style.overflow = 'hidden'; // 防止背景滚动
+        });
+
+        // 显示注册模态框
+        showRegisterBtn.addEventListener('click', () => {
+            registerModal.classList.add('show');
+            document.body.style.overflow = 'hidden';
+        });
+
+        // 关闭登录模态框
+        closeLoginModal.addEventListener('click', () => {
+            loginModal.classList.remove('show');
+            document.body.style.overflow = ''; // 恢复背景滚动
+            clearLoginErrors();
+        });
+
+        // 关闭注册模态框
+        closeRegisterModal.addEventListener('click', () => {
+            registerModal.classList.remove('show');
+            document.body.style.overflow = '';
+            clearRegisterErrors();
+        });
+
+        // 点击模态框外部关闭
+        loginModal.addEventListener('click', (e) => {
+            if (e.target === loginModal) {
+                loginModal.classList.remove('show');
+                document.body.style.overflow = '';
+                clearLoginErrors();
+            }
+        });
+
+        registerModal.addEventListener('click', (e) => {
+            if (e.target === registerModal) {
+                registerModal.classList.remove('show');
+                document.body.style.overflow = '';
+                clearRegisterErrors();
+            }
+        });
+
+        // 切换到注册表单
+        goToRegister.addEventListener('click', (e) => {
+            e.preventDefault();
+            loginModal.classList.remove('show');
+            registerModal.classList.add('show');
+            clearLoginErrors();
+        });
+
+        // 切换到登录表单
+        goToLogin.addEventListener('click', (e) => {
+            e.preventDefault();
+            registerModal.classList.remove('show');
+            loginModal.classList.add('show');
+            clearRegisterErrors();
+        });
+
+        // 清除登录错误提示
+        function clearLoginErrors() {
+            document.getElementById('loginUsernameError').classList.remove('show');
+            document.getElementById('loginPasswordError').classList.remove('show');
+            document.getElementById('loginUsername').value = '';
+            document.getElementById('loginPassword').value = '';
+        }
+
+        // 清除注册错误提示
+        function clearRegisterErrors() {
+            document.getElementById('regUsernameError').classList.remove('show');
+            document.getElementById('regEmailError').classList.remove('show');
+            document.getElementById('regPasswordError').classList.remove('show');
+            document.getElementById('regUsername').value = '';
+            document.getElementById('regEmail').value = '';
+            document.getElementById('regPassword').value = '';
+            document.getElementById('city').value = '';
+            document.getElementById('subscribeDesc').value = '';
+        }
+
+        // 登录表单验证与提交
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            let isValid = true;
+            const loginUsername = document.getElementById('loginUsername');
+            const loginPassword = document.getElementById('loginPassword');
+            const usernameError = document.getElementById('loginUsernameError');
+            const passwordError = document.getElementById('loginPasswordError');
+
+            // 验证用户名
+            if (!loginUsername.value.trim()) {
+                usernameError.classList.add('show');
+                isValid = false;
+            } else {
+                usernameError.classList.remove('show');
+            }
+
+            // 验证密码
+            if (!loginPassword.value.trim()) {
+                passwordError.classList.add('show');
+                isValid = false;
+            } else {
+                passwordError.classList.remove('show');
+            }
+
+            // 模拟登录成功
+            if (isValid) {
+                usernameDisplay.textContent = loginUsername.value.trim();
+                authButtons.style.display = 'none';
+                userStatus.style.display = 'flex';
+                loginModal.classList.remove('show');
+                document.body.style.overflow = '';
+                alert('登录成功！');
+            }
+        });
+
+        // 注册表单验证与提交
+        registerForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            let isValid = true;
+            const regUsername = document.getElementById('regUsername');
+            const regEmail = document.getElementById('regEmail');
+            const regPassword = document.getElementById('regPassword');
+            const usernameError = document.getElementById('regUsernameError');
+            const emailError = document.getElementById('regEmailError');
+            const passwordError = document.getElementById('regPasswordError');
+
+            // 验证用户名
+            if (!regUsername.value.trim()) {
+                usernameError.classList.add('show');
+                isValid = false;
+            } else {
+                usernameError.classList.remove('show');
+            }
+
+            // 验证邮箱
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(regEmail.value.trim())) {
+                emailError.classList.add('show');
+                isValid = false;
+            } else {
+                emailError.classList.remove('show');
+            }
+
+            // 验证密码
+            if (!regPassword.value.trim()) {
+                passwordError.classList.add('show');
+                isValid = false;
+            } else {
+                passwordError.classList.remove('show');
+            }
+
+            // 模拟注册成功
+            if (isValid) {
+                usernameDisplay.textContent = regUsername.value.trim();
+                authButtons.style.display = 'none';
+                userStatus.style.display = 'flex';
+                registerModal.classList.remove('show');
+                document.body.style.overflow = '';
+                alert('注册并订阅成功！');
+            }
+        });
+
+        // 退出登录
+        logoutBtn.addEventListener('click', () => {
+            userStatus.style.display = 'none';
+            authButtons.style.display = 'flex';
+            alert('已退出登录');
+        });
+
+        // 图书操作功能（加入购物车和立即购买）
+        document.querySelectorAll('.add-to-cart').forEach(button => {
+            button.addEventListener('click', function() {
+                const bookTitle = this.getAttribute('data-book');
+                const bookPrice = this.getAttribute('data-price');
+                
+                // 模拟加入购物车逻辑
+                alert(`《${bookTitle}》已加入购物车！\n价格：¥${bookPrice}`);
+            });
+        });
+
+        document.querySelectorAll('.buy-now').forEach(button => {
+            button.addEventListener('click', function() {
+                const bookTitle = this.getAttribute('data-book');
+                const bookPrice = this.getAttribute('data-price');
+                
+                // 模拟立即购买逻辑
+                if (confirm(`确认购买《${bookTitle}》？\n价格：¥${bookPrice}`)) {
+                    alert(`购买《${bookTitle}》成功！\n订单已提交。`);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
