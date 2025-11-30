@@ -1,0 +1,731 @@
+        /* 全局样式重置 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "微软雅黑", sans-serif;
+            color: #333;
+            line-height: 1.6;
+            padding-top: 70px; /* 为固定顶部栏预留空间 */
+        }
+
+        /* 头部区域：固定定位 */
+        .header {
+            position: fixed; /* 固定在顶部 */
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #fff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 15px 0;
+            overflow: hidden;
+            z-index: 999; /* 确保在最上层 */
+            transition: all 0.3s ease;
+        }
+
+        .header:hover {
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .logo {
+            float: left;
+            margin-left: 30px;
+        }
+
+        .logo h1 {
+            font-size: 24px;
+            color: #2c3e50;
+        }
+
+        .nav-menu {
+            float: right;
+            margin-right: 30px;
+        }
+
+        .nav-menu ul {
+            list-style: none;
+        }
+
+        .nav-menu ul li {
+            float: left;
+            margin-left: 20px;
+        }
+
+        .nav-menu ul li a {
+            text-decoration: none;
+            color: #333;
+            font-size: 16px;
+            transition: color 0.3s ease, transform 0.3s ease;
+            display: inline-block;
+        }
+
+        .nav-menu ul li a:hover {
+            color: #3498db;
+            transform: translateY(-3px);
+        }
+
+        /* --- 轮播图样式 (使用最新代码中的效果) --- */
+        .carousel-container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 20px auto;
+            overflow: hidden;
+            position: relative;
+            height: 250px; 
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .carousel {
+            display: flex;
+            width: 400%;
+            height: 100%;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .carousel-item {
+            width: 25%;
+            height: 100%;
+            position: relative;
+        }
+
+        .carousel-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* 确保图片覆盖容器并居中 */
+        }
+
+        /* 轮播图关键帧动画 */
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        .carousel-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-image: linear-gradient(to top, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0));
+            color: white;
+            padding: 25px 20px 15px; /* 调整内边距 */
+            animation: fadeIn 0.8s ease;
+        }
+
+        .carousel-caption h3 {
+            font-size: 1.5em;
+            margin-bottom: 5px;
+        }
+
+        .carousel-caption p {
+            font-size: 1em;
+            opacity: 0.9;
+        }
+
+        .carousel-control {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(255, 255, 255, 0.8);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 18px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .carousel-control:hover {
+            background-color: #fff;
+            transform: translateY(-50%) scale(1.1);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+
+        .prev {
+            left: 15px;
+        }
+
+        .next {
+            right: 15px;
+        }
+
+        .carousel-indicators {
+            position: absolute;
+            bottom: 15px; /* 向上移动 */
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 8px; /* 减小间距 */
+            z-index: 10;
+        }
+
+        .indicator {
+            width: 10px;  /* 缩小指示器 */
+            height: 10px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .indicator.active {
+            background-color: white;
+            transform: scale(1.2);
+        }
+
+        /* --- 轮播图样式修改结束 --- */
+
+        /* 主体容器：三栏布局 */
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 20px auto;
+            overflow: hidden;
+        }
+
+        .sidebar {
+            float: left;
+            width: 20%;
+            background-color: #f9f9f9;
+            padding: 20px;
+            border: 1px solid #eee;
+            margin-right: 2%;
+            transition: box-shadow 0.3s ease;
+        }
+
+        .sidebar:hover {
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        /* 左侧栏图标样式 */
+        .sidebar h2 i {
+            margin-right: 8px;
+            color: #3498db;
+            transition: transform 0.3s ease;
+        }
+
+        .sidebar h2:hover i {
+            transform: rotate(15deg);
+        }
+
+        .category-list li i {
+            margin-right: 8px;
+            color: #3498db;
+            font-size: 14px;
+        }
+
+        .sidebar h2 {
+            font-size: 18px;
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+
+        .category-list {
+            list-style: none;
+        }
+
+        .category-list li {
+            margin-bottom: 10px;
+        }
+
+        .category-list li a {
+            text-decoration: none;
+            color: #666;
+            transition: color 0.3s ease, transform 0.3s ease;
+            display: inline-block;
+        }
+
+        .category-list li a:hover {
+            color: #3498db;
+            transform: translateX(5px);
+            cursor: pointer;
+        }
+
+        .content {
+            float: left;
+            width: 56%;
+            padding: 20px;
+            border: 1px solid #eee;
+            margin-right: 2%;
+        }
+
+        .filter {
+            margin-bottom: 20px;
+        }
+
+        .filter select {
+            padding: 8px 12px;
+            margin-right: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: border-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .filter select:hover {
+            border-color: #3498db;
+            transform: scale(1.05);
+        }
+
+        .book-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .book-item {
+            width: calc(50% - 10px);
+            border: 1px solid #eee;
+            border-radius: 8px;
+            overflow: hidden;
+            /* 关键修改：添加向右上方放大的动画 */
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            /* 添加相对定位，确保z-index生效 */
+            position: relative;
+            z-index: 1;
+        }
+
+        /* 关键修改：悬停时向右上方移动并放大 */
+        .book-item:hover {
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+            /* 向右移动10px，向上移动10px，放大1.05倍 */
+            transform: translate(10px, -10px) scale(1.05);
+            z-index: 10; /* 提高层级，避免被其他图书遮挡 */
+        }
+
+        /* 图书图片容器：固定在图书框内 */
+        .book-img-container {
+            position: relative; /* 相对定位，确保在图书卡片内 */
+            width: 100%;       /* 占满卡片宽度 */
+            height: 250px;     /* 固定高度，形成图书框 */
+            overflow: hidden;  /* 超出框的部分隐藏，确保封面不溢出 */
+        }
+
+        /* 书籍封面图：固定在框内 */
+        .book-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* 保持比例填充框，不拉伸变形 */
+            transition: transform 0.5s ease; /* 放大动画过渡 */
+        }
+
+        /* 放大预览效果：在框内放大，不溢出 */
+        .book-img-container:hover .book-img {
+            transform: scale(1.2); /* 放大1.2倍 */
+        }
+
+        /* 隐藏大图切换效果 */
+        .book-img-big {
+            display: none;
+        }
+
+        .book-title {
+            font-size: 18px;
+            padding: 10px 15px;
+            color: #2c3e50;
+            transition: color 0.3s ease;
+        }
+
+        .book-item:hover .book-title {
+            color: #3498db;
+        }
+
+        .book-price {
+            font-size: 20px;
+            color: #e74c3c;
+            padding: 0 15px 10px;
+            transition: color 0.3s ease;
+        }
+
+        .book-item:hover .book-price {
+            color: #c0392b;
+        }
+
+        .book-desc {
+            padding: 0 15px 15px;
+            font-size: 14px;
+            color: #666;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        .book-item:hover .book-desc {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* 图书操作按钮样式 */
+        .book-actions {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 15px;
+            background-color: #f9f9f9;
+            border-top: 1px solid #eee;
+        }
+
+        .add-to-cart, .buy-now {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .add-to-cart {
+            background-color: #3498db;
+            color: white;
+        }
+
+        .add-to-cart:hover {
+            background-color: #2980b9;
+            transform: scale(1.05);
+        }
+
+        .buy-now {
+            background-color: #e74c3c;
+            color: white;
+        }
+
+        .buy-now:hover {
+            background-color: #c0392b;
+            transform: scale(1.05);
+        }
+
+        /* 右侧栏：促销信息 */
+        .promotion {
+            float: left;
+            width: 20%;
+            background-color: #f9f9f9;
+            padding: 20px;
+            border: 1px solid #eee;
+            transition: box-shadow 0.3s ease;
+        }
+
+        .promotion:hover {
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .promotion h2 {
+            font-size: 18px;
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+
+        .promo-item {
+            background-color: #fff;
+            padding: 15px;
+            border-radius: 6px;
+            border: 1px solid #eee;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.03); }
+            100% { transform: scale(1); }
+        }
+
+        .promo-item p {
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        /* 页脚样式 */
+        .footer {
+            clear: both;
+            text-align: center;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-top: 1px solid #eee;
+            margin-top: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .footer:hover {
+            background-color: #f0f0f0;
+        }
+
+        /* 登录相关样式 */
+        /* 1. 顶部登录按钮样式 */
+        .user-action {
+            float: right;
+            margin-right: 30px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .login-btn, .register-btn, .logout-btn, .user-info {
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            text-decoration: none;
+        }
+        .login-btn {
+            background-color: transparent;
+            color: #333;
+        }
+        .login-btn:hover {
+            color: #3498db;
+            transform: scale(1.05);
+        }
+        .register-btn {
+            background-color: #3498db;
+            color: #fff;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* 登录按钮渐变动画 */
+        .register-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: all 0.5s ease;
+        }
+
+        .register-btn:hover::before {
+            left: 100%;
+        }
+
+        .register-btn:hover {
+            background-color: #2980b9;
+            transform: scale(1.05);
+        }
+        .logout-btn {
+            background-color: #e74c3c;
+            color: #fff;
+        }
+        .logout-btn:hover {
+            background-color: #c0392b;
+            transform: scale(1.05);
+        }
+        .user-info {
+            color: #333;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .user-info i {
+            color: #3498db;
+        }
+
+        /* 2. 登录/注册模态框样式（弹窗） */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 9999; /* 确保在最顶层 */
+            display: none; /* 默认隐藏 */
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.3s ease;
+        }
+        .modal.show {
+            display: flex; /* 显示时改为flex */
+        }
+        .modal-content {
+            background-color: #fff;
+            width: 100%;
+            max-width: 500px;
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+            position: relative;
+            transform: scale(0.95);
+            transition: transform 0.3s ease;
+        }
+        .modal.show .modal-content {
+            transform: scale(1);
+        }
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 20px;
+            color: #999;
+            cursor: pointer;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+        .close-modal:hover {
+            color: #333;
+            transform: rotate(90deg);
+        }
+        .modal-title {
+            font-size: 22px;
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 25px;
+            font-weight: 600;
+        }
+        /* 登录/注册表单样式 */
+        .auth-form {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .form-group label {
+            font-size: 14px;
+            color: #666;
+        }
+        .form-control {
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        .form-control:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+        }
+        .form-error {
+            color: #e74c3c;
+            font-size: 12px;
+            height: 14px; /* 固定高度避免表单跳动 */
+            display: none; /* 默认隐藏错误提示 */
+        }
+        .form-error.show {
+            display: block; /* 错误时显示 */
+        }
+        .submit-btn {
+            padding: 12px;
+            background-color: #3498db;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+        .submit-btn:hover {
+            background-color: #2980b9;
+            transform: scale(1.03);
+        }
+        .form-footer {
+            margin-top: 15px;
+            text-align: center;
+            font-size: 14px;
+            color: #666;
+        }
+        .form-footer a {
+            color: #3498db;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        .form-footer a:hover {
+            text-decoration: underline;
+            color: #2980b9;
+        }
+
+        /* 3. 响应式适配（小屏幕调整） */
+        @media (max-width: 768px) {
+            .header {
+                padding: 10px 0;
+            }
+            .logo h1 {
+                font-size: 20px;
+            }
+            .nav-menu, .user-action {
+                margin-right: 15px;
+            }
+            .nav-menu ul li {
+                margin-left: 10px;
+            }
+            .nav-menu ul li a {
+                font-size: 14px;
+            }
+            .modal-content {
+                padding: 20px;
+                margin: 0 15px;
+            }
+
+            /* 响应式下轮播图进一步缩小 */
+            .carousel-container {
+                height: 200px;
+                margin: 15px auto;
+            }
+            .carousel-caption h3 {
+                font-size: 1.2em;
+            }
+            .carousel-caption p {
+                font-size: 0.9em;
+            }
+
+            /* 响应式下图书悬停效果调整，避免溢出 */
+            .book-item {
+                width: 100%;
+            }
+            .book-item:hover {
+                transform: translate(5px, -5px) scale(1.02);
+            }
+        }
+        /* 输入框图标容器样式（统一优化） */
+        .input-with-icon {
+            display: flex;
+            align-items: center;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            overflow: hidden;
+            transition: border-color 0.3s ease;
+        }
+        .input-with-icon:hover {
+            border-color: #3498db;
+        }
+        .input-icon {
+            padding: 0 12px;
+            background-color: #f5f5f5;
+            border-right: 1px solid #ddd;
+            color: #666;
+        }
+        .input-with-icon .form-control {
+            border: none;
+            border-radius: 0;
+            flex: 1;
+            padding-left: 12px;
+        }
+
+        /* 购物车/搜索图标样式 */
+        .icon-rotate {
+            transition: transform 0.5s ease;
+            font-size: 20px;
+            cursor: pointer;
+            color: #333;
+        }
+        .icon-rotate:hover {
+            transform: rotate(360deg);
+            color: #3498db;
+        }
+  
