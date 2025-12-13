@@ -1,0 +1,1125 @@
+/* 全局样式重置 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "微软雅黑", "PingFang SC", sans-serif;
+    color: #333;
+    line-height: 1.6;
+    padding-top: 70px;
+    background-color: #f8f9fa; /* 浅背景提升美观度 */
+}
+
+/* 头部区域：固定定位 */
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #fff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+    padding: 15px 0;
+    overflow: hidden;
+    z-index: 999;
+    transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+}
+
+.header:hover {
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.12);
+}
+
+.logo {
+    float: left;
+    margin-left: 30px;
+}
+
+.logo h1 {
+    font-size: 24px;
+    color: #2c3e50;
+    font-weight: 600;
+}
+
+.nav-menu {
+    float: right;
+    margin-right: 30px;
+}
+
+.nav-menu ul {
+    list-style: none;
+}
+
+.nav-menu ul li {
+    float: left;
+    margin-left: 20px;
+}
+
+/* 导航菜单项过渡增强 */
+.nav-menu ul li a {
+    text-decoration: none;
+    color: #333;
+    font-size: 16px;
+    transition-property: color, background-color, transform;
+    transition-duration: 0.3s;
+    transition-timing-function: ease-in-out;
+    -webkit-transition-property: color, background-color, transform;
+    -webkit-transition-duration: 0.3s;
+    -webkit-transition-timing-function: ease-in-out;
+    display: inline-block;
+    padding: 5px 8px;
+    border-radius: 4px;
+}
+
+.nav-menu ul li a:hover {
+    color: #3498db;
+    background-color: rgba(52, 152, 219, 0.1);
+    transform: translateY(-3px);
+    -webkit-transform: translateY(-3px);
+}
+
+/* --- 轮播图样式 --- */
+.carousel-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 20px auto;
+    overflow: hidden;
+    position: relative;
+    height: 280px; 
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+.carousel {
+    display: flex;
+    width: 400%;
+    height: 100%;
+    transition: transform 0.5s ease-in-out;
+    -webkit-transition: transform 0.5s ease-in-out;
+}
+
+.carousel-item {
+    width: 25%;
+    height: 100%;
+    position: relative;
+}
+
+.carousel-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* 轮播图关键帧动画 */
+@keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+@-webkit-keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+.carousel-caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-image: linear-gradient(to top, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0));
+    color: white;
+    padding: 25px 20px 15px;
+    animation: fadeIn 0.8s ease;
+    -webkit-animation: fadeIn 0.8s ease;
+}
+
+.carousel-caption h3 {
+    font-size: 1.5em;
+    margin-bottom: 5px;
+    font-weight: 500;
+}
+
+.carousel-caption p {
+    font-size: 1em;
+    opacity: 0.9;
+}
+
+.carousel-control {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+    background-color: rgba(255, 255, 255, 0.8);
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    font-size: 18px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.carousel-control:hover {
+    background-color: #fff;
+    transform: translateY(-50%) scale(1.1);
+    -webkit-transform: translateY(-50%) scale(1.1);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+.prev {
+    left: 15px;
+}
+
+.next {
+    right: 15px;
+}
+
+.carousel-indicators {
+    position: absolute;
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    -webkit-transform: translateX(-50%);
+    display: flex;
+    gap: 8px;
+    z-index: 10;
+}
+
+.indicator {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    -webkit-transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.indicator.active {
+    background-color: white;
+    transform: scale(1.2);
+    -webkit-transform: scale(1.2);
+}
+
+/* --- 3D环形图书展示区（优化版，尺寸统一+排版美观）--- */
+.hot-books-3d {
+    width: 100%;
+    max-width: 1200px;
+    margin: 60px auto;
+    padding: 0 20px;
+}
+
+.hot-books-3d h2 {
+    text-align: center;
+    font-size: 26px;
+    color: #2c3e50;
+    margin-bottom: 40px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+/* 3D环形容器核心样式（保证尺寸统一） */
+.hot-books-container {
+    position: relative;
+    width: 220px;
+    height: 320px;
+    margin: 0 auto;
+    perspective: 1000px;
+    -webkit-perspective: 1000px;
+    transform-style: preserve-3d;
+    -webkit-transform-style: preserve-3d;
+    animation: rotateRing 25s infinite linear;
+    -webkit-animation: rotateRing 25s infinite linear;
+}
+
+/* 鼠标悬停暂停旋转 */
+.hot-books-container:hover {
+    animation-play-state: paused;
+    -webkit-animation-play-state: paused;
+}
+
+/* 每一个图书项（强制等大） */
+.hot-book-item {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 220px;
+    height: 320px;
+    transform-style: preserve-3d;
+    -webkit-transform-style: preserve-3d;
+    transition: all 0.4s ease;
+    -webkit-transition: all 0.4s ease;
+    text-align: center;
+}
+
+/* 环形排列（5个项，间隔72deg，统一半径） */
+.hot-book-item:nth-child(1) {
+    transform: rotateY(0deg) translateZ(320px);
+    -webkit-transform: rotateY(0deg) translateZ(320px);
+}
+
+.hot-book-item:nth-child(2) {
+    transform: rotateY(72deg) translateZ(320px);
+    -webkit-transform: rotateY(72deg) translateZ(320px);
+}
+
+.hot-book-item:nth-child(3) {
+    transform: rotateY(144deg) translateZ(320px);
+    -webkit-transform: rotateY(144deg) translateZ(320px);
+}
+
+.hot-book-item:nth-child(4) {
+    transform: rotateY(216deg) translateZ(320px);
+    -webkit-transform: rotateY(216deg) translateZ(320px);
+}
+
+.hot-book-item:nth-child(5) {
+    transform: rotateY(288deg) translateZ(320px);
+    -webkit-transform: rotateY(288deg) translateZ(320px);
+}
+
+/* 图书图片（强制等大，适配容器） */
+.hot-book-img {
+    width: 100%;
+    height: 88%;
+    object-fit: cover;
+    border-radius: 10px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    border: 3px solid #fff;
+}
+
+/* 图书标题（优化排版） */
+.hot-book-item h4 {
+    color: #2c3e50;
+    font-size: 15px;
+    margin-top: 8px;
+    padding: 0 5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-weight: 500;
+}
+
+/* 环形旋转动画（平滑匀速） */
+@keyframes rotateRing {
+    0% {
+        transform: rotateY(0deg);
+        -webkit-transform: rotateY(0deg);
+    }
+    100% {
+        transform: rotateY(360deg);
+        -webkit-transform: rotateY(360deg);
+    }
+}
+
+@-webkit-keyframes rotateRing {
+    0% {
+        -webkit-transform: rotateY(0deg);
+    }
+    100% {
+        -webkit-transform: rotateY(360deg);
+    }
+}
+
+/* 主体容器：三栏布局 */
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 40px auto;
+    overflow: hidden;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    padding: 20px;
+}
+
+.sidebar {
+    float: left;
+    width: 20%;
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    margin-right: 2%;
+    transition: box-shadow 0.3s ease;
+    -webkit-transition: box-shadow 0.3s ease;
+}
+
+.sidebar:hover {
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+}
+
+/* 左侧栏图标样式 */
+.sidebar h2 i {
+    margin-right: 8px;
+    color: #3498db;
+    transition: transform 0.3s ease;
+    -webkit-transition: transform 0.3s ease;
+}
+
+.sidebar h2:hover i {
+    transform: rotate(15deg);
+    -webkit-transform: rotate(15deg);
+}
+
+.category-list li i {
+    margin-right: 8px;
+    color: #3498db;
+    font-size: 14px;
+}
+
+.sidebar h2 {
+    font-size: 18px;
+    margin-bottom: 15px;
+    color: #2c3e50;
+    font-weight: 600;
+}
+
+.category-list {
+    list-style: none;
+}
+
+.category-list li {
+    margin-bottom: 10px;
+}
+
+.category-list li a {
+    text-decoration: none;
+    color: #666;
+    transition: color 0.3s ease, transform 0.3s ease;
+    -webkit-transition: color 0.3s ease, transform 0.3s ease;
+    display: inline-block;
+}
+
+.category-list li a:hover {
+    color: #3498db;
+    transform: translateX(5px);
+    -webkit-transform: translateX(5px);
+    cursor: pointer;
+}
+
+.content {
+    float: left;
+    width: 56%;
+    padding: 20px;
+    border-radius: 8px;
+    margin-right: 2%;
+}
+
+.filter {
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eee;
+}
+
+.filter select {
+    padding: 8px 12px;
+    margin-right: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: border-color 0.3s ease, transform 0.3s ease;
+    -webkit-transition: border-color 0.3s ease, transform 0.3s ease;
+}
+
+.filter select:hover {
+    border-color: #3498db;
+    transform: scale(1.05);
+    -webkit-transform: scale(1.05);
+}
+
+.book-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+/* 3D翻转图书卡片容器 */
+.book-item {
+    width: calc(50% - 10px);
+    height: 350px;
+    perspective: 1000px;
+    -webkit-perspective: 1000px;
+    margin-bottom: 20px;
+}
+
+.book-card {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    -webkit-transform-style: preserve-3d;
+    transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    -webkit-transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    cursor: pointer;
+}
+
+/* 图书正反两面 */
+.book-front, .book-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+.book-front {
+    background-color: #fff;
+}
+
+.book-back {
+    background-color: #f9f9f9;
+    transform: rotateY(180deg);
+    -webkit-transform: rotateY(180deg);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/* 悬停翻转效果 */
+.book-item:hover .book-card {
+    transform: rotateY(180deg);
+    -webkit-transform: rotateY(180deg);
+}
+
+/* 图书正面样式 */
+.book-img-container {
+    width: 100%;
+    height: 80%;
+    overflow: hidden;
+}
+
+.book-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+    -webkit-transition: transform 0.5s ease;
+}
+
+.book-img-container:hover .book-img {
+    transform: scale(1.2);
+    -webkit-transform: scale(1.2);
+}
+
+.book-title {
+    font-size: 18px;
+    padding: 10px 15px;
+    color: #2c3e50;
+    font-weight: 500;
+}
+
+/* 图书背面样式 */
+.book-back-title {
+    font-size: 18px;
+    color: #2c3e50;
+    margin-bottom: 10px;
+    font-weight: 500;
+}
+
+.book-back-price {
+    font-size: 20px;
+    color: #e74c3c;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+.book-rating {
+    color: #f39c12;
+    margin-bottom: 10px;
+    font-size: 14px;
+}
+
+.book-rating span {
+    color: #666;
+    margin-left: 5px;
+}
+
+.book-back-desc {
+    font-size: 14px;
+    color: #666;
+    line-height: 1.5;
+    flex: 1;
+}
+
+/* 按钮过渡增强 */
+.add-to-cart, .buy-now {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition-property: background-color, transform, box-shadow;
+    transition-duration: 0.3s;
+    transition-timing-function: ease;
+    -webkit-transition-property: background-color, transform, box-shadow;
+    -webkit-transition-duration: 0.3s;
+    -webkit-transition-timing-function: ease;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.add-to-cart {
+    background-color: #3498db;
+    color: white;
+}
+
+.add-to-cart:hover {
+    background-color: #2980b9;
+    transform: scale(1.05);
+    -webkit-transform: scale(1.05);
+    box-shadow: 0 4px 10px rgba(41, 128, 185, 0.3);
+}
+
+.buy-now {
+    background-color: #e74c3c;
+    color: white;
+}
+
+.buy-now:hover {
+    background-color: #c0392b;
+    transform: scale(1.05);
+    -webkit-transform: scale(1.05);
+    box-shadow: 0 4px 10px rgba(192, 57, 43, 0.3);
+}
+
+.book-back-actions {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+/* 右侧栏：促销信息 */
+.promotion {
+    float: left;
+    width: 20%;
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    transition: box-shadow 0.3s ease;
+    -webkit-transition: box-shadow 0.3s ease;
+}
+
+.promotion:hover {
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+}
+
+.promotion h2 {
+    font-size: 18px;
+    margin-bottom: 15px;
+    color: #2c3e50;
+    font-weight: 600;
+}
+
+.promo-item {
+    background-color: #fff;
+    padding: 15px;
+    border-radius: 6px;
+    border: 1px solid #eee;
+    animation: pulse 2s infinite;
+    -webkit-animation: pulse 2s infinite;
+    margin-bottom: 20px;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.03); }
+    100% { transform: scale(1); }
+}
+
+@-webkit-keyframes pulse {
+    0% { -webkit-transform: scale(1); }
+    50% { -webkit-transform: scale(1.03); }
+    100% { -webkit-transform: scale(1); }
+}
+
+.promo-item p {
+    margin-bottom: 10px;
+    color: #333;
+}
+
+/* 页脚3D效果 */
+.footer {
+    clear: both;
+    text-align: center;
+    padding: 30px 20px;
+    background-color: #f9f9f9;
+    border-top: 1px solid #eee;
+    margin-top: 50px;
+    transition: background-color 0.3s ease;
+    -webkit-transition: background-color 0.3s ease;
+    border-radius: 0 0 8px 8px;
+}
+
+.footer:hover {
+    background-color: #f0f0f0;
+}
+
+.social-icons {
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.social-icon {
+    font-size: 24px;
+    color: #333;
+    transition-property: color, transform;
+    transition-duration: 0.5s;
+    transition-timing-function: ease-in-out;
+    -webkit-transition-property: color, transform;
+    -webkit-transition-duration: 0.5s;
+    -webkit-transition-timing-function: ease-in-out;
+}
+
+.social-icon:hover {
+    color: #3498db;
+    transform: rotateY(360deg);
+    -webkit-transform: rotateY(360deg);
+}
+
+.copyright {
+    opacity: 0;
+    animation: fadeIn 2s ease-in-out forwards;
+    -webkit-animation: fadeIn 2s ease-in-out forwards;
+    animation-delay: 0.5s;
+    -webkit-animation-delay: 0.5s;
+    color: #666;
+    font-size: 14px;
+}
+
+/* 版权信息淡入动画 */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+        -webkit-transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+        -webkit-transform: translateY(0);
+    }
+}
+
+@-webkit-keyframes fadeIn {
+    from {
+        opacity: 0;
+        -webkit-transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        -webkit-transform: translateY(0);
+    }
+}
+
+/* 登录相关样式 */
+.user-action {
+    float: right;
+    margin-right: 30px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+.login-btn, .register-btn, .logout-btn, .user-info {
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition-property: background-color, color, transform;
+    transition-duration: 0.3s;
+    transition-timing-function: ease;
+    -webkit-transition-property: background-color, color, transform;
+    -webkit-transition-duration: 0.3s;
+    -webkit-transition-timing-function: ease;
+    border: none;
+    text-decoration: none;
+}
+.login-btn {
+    background-color: transparent;
+    color: #333;
+}
+.login-btn:hover {
+    color: #3498db;
+    transform: scale(1.05);
+    -webkit-transform: scale(1.05);
+}
+.register-btn {
+    background-color: #3498db;
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+}
+
+/* 登录按钮渐变动画 */
+.register-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: all 0.5s ease;
+    -webkit-transition: all 0.5s ease;
+}
+
+.register-btn:hover::before {
+    left: 100%;
+}
+
+.register-btn:hover {
+    background-color: #2980b9;
+    transform: scale(1.05);
+    -webkit-transform: scale(1.05);
+}
+.logout-btn {
+    background-color: #e74c3c;
+    color: #fff;
+}
+.logout-btn:hover {
+    background-color: #c0392b;
+    transform: scale(1.05);
+    -webkit-transform: scale(1.05);
+}
+.user-info {
+    color: #333;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+.user-info i {
+    color: #3498db;
+}
+
+/* 登录/注册模态框样式 */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn 0.3s ease;
+    -webkit-animation: fadeIn 0.3s ease;
+}
+.modal.show {
+    display: flex;
+}
+.modal-content {
+    background-color: #fff;
+    width: 100%;
+    max-width: 500px;
+    border-radius: 8px;
+    padding: 30px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+    position: relative;
+    transform: scale(0.95);
+    -webkit-transform: scale(0.95);
+    transition: transform 0.3s ease;
+    -webkit-transition: transform 0.3s ease;
+}
+.modal.show .modal-content {
+    transform: scale(1);
+    -webkit-transform: scale(1);
+}
+.close-modal {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 20px;
+    color: #999;
+    cursor: pointer;
+    transition: color 0.3s ease, transform 0.3s ease;
+    -webkit-transition: color 0.3s ease, transform 0.3s ease;
+}
+.close-modal:hover {
+    color: #333;
+    transform: rotate(90deg);
+    -webkit-transform: rotate(90deg);
+}
+.modal-title {
+    font-size: 22px;
+    color: #2c3e50;
+    text-align: center;
+    margin-bottom: 25px;
+    font-weight: 600;
+}
+/* 登录/注册表单样式 */
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.form-group label {
+    font-size: 14px;
+    color: #666;
+}
+/* 输入框过渡增强 */
+.form-control {
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+    transition-property: border-color, box-shadow, transform;
+    transition-duration: 0.3s;
+    transition-timing-function: ease;
+    -webkit-transition-property: border-color, box-shadow, transform;
+    -webkit-transition-duration: 0.3s;
+    -webkit-transition-timing-function: ease;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: #3498db;
+    box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+    -webkit-box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+    transform: scale(1.01);
+    -webkit-transform: scale(1.01);
+}
+
+.form-error {
+    color: #e74c3c;
+    font-size: 12px;
+    height: 14px;
+    display: none;
+}
+.form-error.show {
+    display: block;
+}
+.submit-btn {
+    padding: 12px;
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    -webkit-transition: background-color 0.3s ease, transform 0.3s ease;
+}
+.submit-btn:hover {
+    background-color: #2980b9;
+    transform: scale(1.03);
+    -webkit-transform: scale(1.03);
+}
+.form-footer {
+    margin-top: 15px;
+    text-align: center;
+    font-size: 14px;
+    color: #666;
+}
+.form-footer a {
+    color: #3498db;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    -webkit-transition: color 0.3s ease;
+}
+.form-footer a:hover {
+    text-decoration: underline;
+    color: #2980b9;
+}
+
+/* 输入框图标容器样式 */
+.input-with-icon {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    overflow: hidden;
+    transition: border-color 0.3s ease;
+    -webkit-transition: border-color 0.3s ease;
+}
+.input-with-icon:hover {
+    border-color: #3498db;
+}
+.input-icon {
+    padding: 0 12px;
+    background-color: #f5f5f5;
+    border-right: 1px solid #ddd;
+    color: #666;
+}
+.input-with-icon .form-control {
+    border: none;
+    border-radius: 0;
+    flex: 1;
+    padding-left: 12px;
+}
+
+/* 购物车/搜索图标样式 */
+.icon-rotate {
+    transition: transform 0.5s ease;
+    -webkit-transition: transform 0.5s ease;
+    font-size: 20px;
+    cursor: pointer;
+    color: #333;
+}
+.icon-rotate:hover {
+    transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+    color: #3498db;
+}
+
+/* 新增：智能搜索样式 */
+.search-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    width: 300px;
+}
+.search-filters {
+    display: flex;
+    gap: 10px;
+    font-size: 12px;
+    color: #666;
+}
+.search-results {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    border-radius: 4px;
+    z-index: 999;
+    max-height: 200px;
+    overflow-y: auto;
+}
+.search-result-item {
+    padding: 10px;
+    display: flex;
+    gap: 10px;
+    border-bottom: 1px solid #eee;
+    cursor: pointer;
+}
+.search-result-item:hover {
+    background-color: #f8f9fa;
+}
+.search-result-img {
+    width: 50px;
+    height: 70px;
+    object-fit: cover;
+    border-radius: 4px;
+}
+.search-result-item h4 {
+    font-size: 14px;
+    color: #2c3e50;
+    margin-bottom: 3px;
+}
+.search-result-item p {
+    font-size: 12px;
+    color: #666;
+}
+
+/* 新增：密码强度样式 */
+.password-strength {
+    font-size: 12px;
+    margin-top: 5px;
+    height: 14px;
+}
+
+/* 响应式适配（小屏幕调整） */
+@media (max-width: 768px) {
+    .header {
+        padding: 10px 0;
+    }
+    .logo h1 {
+        font-size: 20px;
+    }
+    .nav-menu, .user-action {
+        margin-right: 15px;
+    }
+    .nav-menu ul li {
+        margin-left: 10px;
+    }
+    .nav-menu ul li a {
+        font-size: 14px;
+    }
+    .modal-content {
+        padding: 20px;
+        margin: 0 15px;
+    }
+
+    /* 响应式下轮播图进一步缩小 */
+    .carousel-container {
+        height: 200px;
+        margin: 15px auto;
+    }
+    .carousel-caption h3 {
+        font-size: 1.2em;
+    }
+    .carousel-caption p {
+        font-size: 0.9em;
+    }
+
+    /* 响应式下图书卡片调整 */
+    .book-item {
+        width: 100%;
+    }
+
+    /* 响应式下3D环形展示简化 */
+    .hot-books-container {
+        width: 180px;
+        height: 280px;
+    }
+    .hot-book-item {
+        width: 180px;
+        height: 280px;
+    }
+    .hot-book-item:nth-child(n) {
+        transform: rotateY(calc(72deg * (n-1))) translateZ(250px);
+        -webkit-transform: rotateY(calc(72deg * (n-1))) translateZ(250px);
+    }
+
+    .hot-book-img {
+        height: 85%;
+    }
+
+    .hot-book-item h4 {
+        font-size: 14px;
+    }
+
+    .hot-books-3d h2 {
+        font-size: 22px;
+        margin-bottom: 30px;
+    }
+
+    /* 响应式下三栏布局改为单列 */
+    .sidebar, .content, .promotion {
+        width: 100%;
+        margin-right: 0;
+        margin-bottom: 20px;
+    }
+
+    .container {
+        padding: 15px;
+    }
+
+    /* 响应式下搜索框调整 */
+    .search-container {
+        width: 200px;
+    }
+}
