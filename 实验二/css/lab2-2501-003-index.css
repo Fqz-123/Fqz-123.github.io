@@ -1,0 +1,258 @@
+/* 基础样式重置 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: "Microsoft YaHei", sans-serif;
+            color: #333;
+            background-color: #f5f5f5;
+            padding-top: 80px; /* 防止被固定头部遮挡 */
+        }
+
+        /* 头部区域-固定定位+浮动布局 */
+        .header {
+            width: 100%;
+            height: 80px;
+            background-color: #333;
+            color: #fff;
+            /* 固定定位 实验要求 */
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 999;
+        }
+        .header-container {
+            width: 1200px;
+            margin: 0 auto;
+            height: 100%;
+        }
+        .logo {
+            float: left;
+            font-size: 28px;
+            line-height: 80px;
+            font-weight: bold;
+        }
+        .nav {
+            float: right;
+            margin-top: 25px;
+        }
+        .nav ul {
+            list-style: none;
+        }
+        .nav li {
+            float: left;
+            margin-left: 30px;
+            position: relative; /* 为下拉菜单做相对定位 */
+        }
+        .nav a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 16px;
+            transition: color 0.3s;
+        }
+        .nav a:hover {
+            color: #ff9900;
+            cursor: pointer;
+        }
+
+        /* 导航下拉菜单-绝对定位+显示隐藏 实验要求 */
+        .nav .sub-nav {
+            position: absolute;
+            top: 30px;
+            left: 0;
+            background: #444;
+            width: 120px;
+            display: none; /* 默认隐藏 */
+        }
+        .nav .sub-nav a {
+            display: block;
+            padding: 8px 10px;
+        }
+        .nav li:hover .sub-nav {
+            display: block; /* 悬停显示 */
+        }
+
+        /* 主体内容-浮动三栏布局 */
+        .main {
+            width: 1200px;
+            margin: 20px auto;
+            overflow: hidden; /* 清除浮动 */
+        }
+
+        /* 左侧栏-相对定位 */
+        .sidebar-left {
+            float: left;
+            width: 220px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .category-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        .category-list {
+            list-style: none;
+        }
+        .category-item {
+            margin-bottom: 10px;
+            position: relative; /* 相对定位容器 */
+        }
+        .category-item a {
+            display: block;
+            color: #333;
+            text-decoration: none;
+            padding: 8px 0;
+            transition: all 0.3s;
+        }
+        .category-item a:hover {
+            color: #ff9900;
+            padding-left: 10px;
+            cursor: pointer;
+        }
+
+        /* 左侧分类下拉-绝对定位+显示隐藏 */
+        .category-item .sub-menu {
+            position: absolute;
+            left: 180px;
+            top: 0;
+            background: #fff;
+            border: 1px solid #eee;
+            width: 120px;
+            padding: 10px;
+            display: none;
+            z-index: 99;
+        }
+        .category-item:hover .sub-menu {
+            display: block;
+        }
+
+        /* 中间栏-盒子模型 + 浮动排列 */
+        .content {
+            float: left;
+            width: 740px;
+            margin: 0 20px;
+        }
+        .book-section {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        .section-title {
+            font-size: 20px;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        .book-list {
+            overflow: hidden;
+        }
+        .book-item {
+            float: left;
+            width: 220px;
+            margin-right: 20px;
+            margin-bottom: 20px;
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 5px;
+            transition: box-shadow 0.3s;
+        }
+        .book-item:nth-child(3n) {
+            margin-right: 0;
+        }
+        .book-item:hover {
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            cursor: pointer;
+        }
+        .book-img {
+            width: 100%;
+            height: 280px;
+            object-fit: cover;
+            border-radius: 3px;
+            margin-bottom: 10px;
+        }
+        .book-name {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .book-author {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 10px;
+        }
+        .book-price {
+            font-size: 16px;
+            color: #e4393c;
+            font-weight: bold;
+        }
+
+        /* 新书上市-Table布局 */
+        .new-book-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .new-book-table th, .new-book-table td {
+            border: 1px solid #eee;
+            padding: 10px;
+            text-align: center;
+        }
+        .new-book-table th {
+            background-color: #f5f5f5;
+            font-weight: bold;
+        }
+
+        /* 右侧栏-固定定位 实验要求 */
+        .sidebar-right {
+            /* 固定定位 */
+            position: fixed;
+            top: 100px;
+            right: calc((100% - 1200px) / 2);
+            width: 200px;
+        }
+        .promotion {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        .promotion-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        .promotion-item {
+            margin-bottom: 15px;
+        }
+        .promotion-img {
+            width: 100%;
+            border-radius: 3px;
+            margin-bottom: 5px;
+        }
+        .promotion-desc {
+            font-size: 14px;
+            color: #e4393c;
+            font-weight: bold;
+        }
+
+        /* 底部区域 */
+        .footer {
+            clear: both;
+            width: 100%;
+            height: 100px;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            line-height: 100px;
+        }
